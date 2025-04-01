@@ -1,0 +1,10 @@
+CREATE DATABASE todo_app;
+use todo_app;
+
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    task TEXT NOT NULL,
+    priority TEXT NOT NULL
+);
+
+select * from tasks;
