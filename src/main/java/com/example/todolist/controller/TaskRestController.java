@@ -30,10 +30,12 @@ public class TaskRestController {
         return "redirect:/todoList";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/todoList/delete/{id}")
     public String deleteTask(@PathVariable Long id) {
+        System.out.println("Deleting task with ID: " + id);
         taskService.deleteTask(id);
-        return "redirect:/tasks";
+        return "redirect:/todoList";
     }
+
 
 }

@@ -18,17 +18,26 @@
 <form action="/add" method="post">
     <input type="text" name="task" placeholder="Enter task" required>
     <input type="text" name="priority" placeholder="Enter priority" required>
+<!--    <select th:field="*{priority}">-->
+<!--        <option th:each="tempPriority : ${priorities}" th:value="${tempPriority}" th:text="${tempPriority}" />-->
+<!--    </select>-->
+        </div>
+    </div>
+
     <button type="submit">Add Task</button>
 </form>
 
 <ul>
     <li th:each="task : ${tasks}">
         <span th:text="${task.task} + ' (' + ${task.priority} + ')'"></span>
-        <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post">
+        <form th:action="@{/todoList/delete/{id}(id=${task.id})}" method="post">
             <button type="submit">Delete</button>
         </form>
     </li>
 </ul>
+
+
+
 
 </body>
 </html>
