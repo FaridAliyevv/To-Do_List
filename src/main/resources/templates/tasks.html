@@ -5,39 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 10px; border: 1px solid #ddd; margin: 5px; display: flex; justify-content: space-between; }
-        button { margin-left: 10px; }
+        select {
+            padding: 12px; /* Увеличивает внутренний отступ */
+            border-radius: 5px;
+            font-size: 1rem;
+            border: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            flex-direction: column;
+            padding: 20px;
+        }
+        h1 {
+            margin-right: 85%;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .container {
+            margin-right: 45%;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            width: 200%;
+            max-width: 700px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e60073;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        li:hover {
+            transform: scale(1.05);
+        }
+        .delete-btn {
+            background: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
 <h1>To-Do List</h1>
 
-<form action="/add" method="post">
-    <input type="text" name="task" placeholder="Enter task" required>
-    <input type="text" name="priority" placeholder="Enter priority" required>
-<!--    <select th:field="*{priority}">-->
-<!--        <option th:each="tempPriority : ${priorities}" th:value="${tempPriority}" th:text="${tempPriority}" />-->
-<!--    </select>-->
-        </div>
-    </div>
+<div class="container">
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter task" required>
+        <select name="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
 
-    <button type="submit">Add Task</button>
-</form>
-
-<ul>
-    <li th:each="task : ${tasks}">
-        <span th:text="${task.task} + ' (' + ${task.priority} + ')'"></span>
-        <form th:action="@{/todoList/delete/{id}(id=${task.id})}" method="post">
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
-
-
-
+    <ul>
+        <li th:each="task : ${tasks}">
+            <span th:text="${task.task} + ' (' + ${task.priority} + ')'"></span>
+            <form th:action="@{/todoList/delete/{id}(id=${task.id})}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>
