@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -20,13 +21,23 @@ public class TaskRestController {
     @GetMapping("/todoList")
     public String getAllTasks(Model model) {
         List<Task> tasks = taskService.findAll();
+
+        tasks.sort(Comparator.comparingInt(task -> {
+            switch (task.getPriority()) {
+                case "High": return 0;
+                case "Medium": return 1;
+                case "Low": return 2;
+                default: return 3;
+            }
+        }));
+
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
 
     @PostMapping("/add")
-    public String addTask(@RequestParam String task, @RequestParam String priority) {
-        taskService.addTask(new Task(task, priority));
+    public String addTask(@RequestParam String task, @RequestParam String priority, @RequestParam String description) {
+        taskService.addTask(new Task(task, priority, description));
         return "redirect:/todoList";
     }
 

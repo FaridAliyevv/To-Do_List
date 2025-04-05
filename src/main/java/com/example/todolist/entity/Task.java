@@ -17,13 +17,17 @@ public class Task {
     @Column(name = "priority")
     private String priority;
 
+    @Column(name = "description")
+    private String description;
+
     public Task() {
 
     }
 
-    public Task(String task, String priority) {
+    public Task(String task, String priority, String description) {
         this.task = task;
         this.priority = priority;
+        this.description = description;
     }
 
     public long getId() {
@@ -49,6 +53,12 @@ public class Task {
     public void setPriority(String priority) {
         this.priority = priority;
     }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public String toString() {
@@ -56,6 +66,7 @@ public class Task {
                 "id=" + id +
                 ", task='" + task + '\'' +
                 ", priority='" + priority + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
